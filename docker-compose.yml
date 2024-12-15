@@ -1,0 +1,16 @@
+services:
+  postgres:
+    image: postgres
+    container_name: chat-app-dudaji_postgres
+    environment:
+      - POSTGRES_USER=myuser
+      - POSTGRES_PASSWORD=5434
+    ports:
+      - "5434:5432"
+    volumes:
+      - ./init-db.sql:/docker-entrypoint-initdb.d/init-db.sql
+      - chat_app_postgres_data:/var/lib/postgresql/data
+    restart: always
+
+volumes:
+  chat_app_postgres_data:

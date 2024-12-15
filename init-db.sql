@@ -1,0 +1,2 @@
+CREATE DATABASE giabaoblog;
+CREATE SCHEMA redis;
