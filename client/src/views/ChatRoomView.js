@@ -119,7 +119,7 @@ const ChatRoomView = () => {
               <strong>{msg.username}:</strong>{" "}
               {msg.content.startsWith("http") ? (
                 <>
-                  <span>
+                  <span style={{ marginRight: "10px" }}>
                     {msg.content.split("/").pop().split("_").slice(1).join("_")}
                   </span>
                   <button

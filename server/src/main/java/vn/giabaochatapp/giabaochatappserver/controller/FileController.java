@@ -54,7 +54,6 @@ public class FileController {
     @PostMapping("/upload-to-room/{roomId}")
     public ResponseEntity<?> uploadFileToRoom(@PathVariable Long roomId, @RequestParam("file") MultipartFile file) {
         try {
-            System.out.println("Uploading file: " + file.getOriginalFilename());
             String fileUrl = s3Service.uploadFile(file);
 
             File fileEntity = new File();
@@ -63,7 +62,6 @@ public class FileController {
             fileEntity.setUploadedAt(LocalDateTime.now());
             fileRepository.save(fileEntity);
 
-            System.out.println("File uploaded successfully: " + fileUrl);
             return ResponseEntity.ok(fileEntity);
         } catch (IOException e) {
             e.printStackTrace();

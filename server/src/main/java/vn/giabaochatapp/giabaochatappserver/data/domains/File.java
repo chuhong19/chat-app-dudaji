@@ -1,9 +1,6 @@
 package vn.giabaochatapp.giabaochatappserver.data.domains;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -22,12 +19,14 @@ public class File {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Long id;
 
+    @Column(name = "file_name", nullable = false)
     public String fileName;
 
     public String url;
 
     public Long chatRoomId;
 
+    @Column(name = "uploaded_at", nullable = false)
     public LocalDateTime uploadedAt;
 
 }

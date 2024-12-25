@@ -100,7 +100,12 @@ const ManageRoom = () => {
           {requests.map((user) => (
             <li key={user.userId}>
               {user.username}
-              <button onClick={() => handleAccept(user.userId)}>Accept</button>
+              <button 
+                onClick={() => handleAccept(user.userId)}
+                style={{ marginLeft: "10px", marginRight: "10px", marginBottom: "10px" }}
+              >
+                Accept
+              </button>
               <button onClick={() => handleDecline(user.userId)}>Decline</button>
             </li>
           ))}
@@ -115,7 +120,12 @@ const ManageRoom = () => {
           {users.map((user) => (
             <li key={user.userId}>
               {user.username}
-              <button onClick={() => handleDeleteUser(user.userId)}>Delete</button>
+              <button
+                onClick={() => handleDeleteUser(user.userId)}
+                style={{ marginLeft: "10px" }}
+              >
+                Remove
+              </button>
             </li>
           ))}
         </ul>

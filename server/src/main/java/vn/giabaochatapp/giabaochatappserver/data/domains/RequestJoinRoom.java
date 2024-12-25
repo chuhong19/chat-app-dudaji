@@ -14,6 +14,6 @@ public class RequestJoinRoom {
     @Column(name = "user_id", nullable = false)
     public Long userId;
 
-    @Column(name = "chat_room_id", nullable = false)
+    @Column(name = "room_id", nullable = false)
     public Long chatRoomId;
 }

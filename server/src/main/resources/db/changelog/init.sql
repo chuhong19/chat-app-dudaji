@@ -176,21 +176,57 @@ ALTER TABLE "meetings"
 ALTER TABLE "meetings"
     ADD COLUMN "duration" bigint;
 
+--changeset giabaost1910:create-table-refreshtoken
+CREATE TABLE "refresh_token" (
+    "id" bigserial PRIMARY KEY,
+    "user_id" int8,
+    "revoked" bool,
+    "token" text UNIQUE,
+    "created_at" timestamptz(6),
+    "updated_at" timestamptz(6),
+    "expiry_date" timestamptz(6) NOT NULL
+);
+
 --changeset giabaost1910:create-table-chat_rooms
 CREATE TABLE "chat_rooms" (
     "id" bigserial PRIMARY KEY,
     "room_name" varchar(255),
+    "description" varchar(255),
+    "room_creator_id" bigint,
     "created_at" timestamptz(6),
     "updated_at" timestamptz(6)
+);
+
+--changeset giabaost1910:create-table-users_chat_rooms
+CREATE TABLE "users_chat_rooms" (
+    "id" bigserial PRIMARY KEY,
+    "room_id" bigint,
+    "user_id" bigint
 );
 
 --changeset giabaost1910:create-table-messages
 CREATE TABLE "messages" (
     "id" bigserial PRIMARY KEY,
-    "room_id" bigint NOT NULL,
-    "user_id" bigint NOT NULL,
-    "username" varchar(255) NOT NULL,
-    "content" varchar(255) NOT NULL,
+    "room_id" bigint,
+    "user_id" bigint,
+    "username" varchar(255),
+    "content" varchar(255),
     "created_at" timestamptz(6),
     "updated_at" timestamptz(6)
+);
+
+--changeset giabaost1910:create-table-request-join-room
+CREATE TABLE "request_join_room" (
+    "id" bigserial PRIMARY KEY,
+    "room_id" bigint,
+    "user_id" bigint
+);
+
+--changeset giabaost1910:create-table-file
+CREATE TABLE "file" (
+    "id" bigserial PRIMARY KEY,
+    "file_name" varchar(255),
+    "url" varchar(255),
+    "room_id" bigint,
+    "uploaded_at" timestamptz(6)
 );

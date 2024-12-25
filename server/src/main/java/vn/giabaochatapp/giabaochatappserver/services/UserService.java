@@ -535,7 +535,6 @@ public class UserService {
     }
 
     public UserDTO getProfileById() {
-        System.out.println("Get profile called");
         try {
             Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
             User principal = (User) authentication.getPrincipal();

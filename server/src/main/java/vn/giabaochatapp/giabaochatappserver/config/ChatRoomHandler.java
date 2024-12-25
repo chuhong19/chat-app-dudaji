@@ -30,7 +30,6 @@ public class ChatRoomHandler extends TextWebSocketHandler {
     public void afterConnectionEstablished(WebSocketSession session) {
         String roomId = getRoomIdFromSession(session);
         roomManager.addSessionToRoom(roomId, session);
-        System.out.println("New connection established in room: " + roomId);
     }
 
     @Override
@@ -62,7 +61,6 @@ public class ChatRoomHandler extends TextWebSocketHandler {
     public void afterConnectionClosed(WebSocketSession session, CloseStatus status) {
         String roomId = getRoomIdFromSession(session);
         roomManager.removeSessionFromRoom(roomId, session);
-        System.out.println("Connection closed in room: " + roomId);
     }
 
     private String getRoomIdFromSession(WebSocketSession session) {
