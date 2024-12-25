@@ -1,0 +1,24 @@
+.chat-room {
+    padding: 10px;
+  }
+  
+  .room-actions {
+    margin-bottom: 20px;
+  }
+  
+  .message-list {
+    margin-bottom: 20px;
+  }
+  
+  .send-message {
+    margin-bottom: 20px;
+  }
+  
+  .send-message input {
+    margin-right: 10px; 
+  }
+  
+  .upload-file input {
+    margin-right: 10px; 
+  }
+  
