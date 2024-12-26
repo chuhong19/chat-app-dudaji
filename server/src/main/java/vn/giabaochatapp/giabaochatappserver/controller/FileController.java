@@ -26,7 +26,7 @@ public class FileController {
     }
 
     @PostMapping("/upload")
-    public ResponseEntity<?> uploadFile(@RequestParam("file") MultipartFile  file) {
+    public ResponseEntity<?> uploadFile(@RequestParam("file") MultipartFile file) {
         try {
             String fileUrl = s3Service.uploadFile(file);
 
@@ -63,6 +63,9 @@ public class FileController {
             fileRepository.save(fileEntity);
 
             return ResponseEntity.ok(fileEntity);
+        } catch (IllegalArgumentException e) {
+            System.out.println("Caught IllegalArgumentException: " + e.getMessage());
+            return ResponseEntity.badRequest().body(e.getMessage());
         } catch (IOException e) {
             e.printStackTrace();
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("File upload failed");

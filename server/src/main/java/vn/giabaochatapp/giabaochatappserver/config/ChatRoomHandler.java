@@ -68,9 +68,3 @@ public class ChatRoomHandler extends TextWebSocketHandler {
         return uri.substring(uri.lastIndexOf("/") + 1);
     }
 }
-
-
-
-
-
-

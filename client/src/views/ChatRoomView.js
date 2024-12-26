@@ -84,7 +84,7 @@ const ChatRoomView = () => {
 
       setSelectedFile(null);
     } catch (error) {
-      console.error("Error uploading file:", error);
+      alert("Invalid file extension or file size exceeds the maximum limit of 25MB");
     }
   };
 

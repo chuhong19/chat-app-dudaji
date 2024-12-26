@@ -15,6 +15,8 @@ import software.amazon.awssdk.services.s3.presigner.model.GetObjectPresignReques
 import java.io.IOException;
 import java.time.Duration;
 import java.time.LocalDateTime;
+import java.util.Arrays;
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -42,19 +44,37 @@ public class AWSS3Service {
     }
 
     public String uploadFile(MultipartFile file) throws IOException {
-        String fileName = UUID.randomUUID() + "_" + file.getOriginalFilename();
+        final long MAX_SIZE = 25 * 1024 * 1024;
+
+        final List<String> ALLOWED_EXTENSIONS = Arrays.asList("png", "jpg", "jpeg", "pdf", "txt", "docx", "xlsx");
+
+        if (file.getSize() > MAX_SIZE) {
+            throw new IllegalArgumentException("File size exceeds the maximum limit of 25MB");
+        }
+
+        String originalFilename = file.getOriginalFilename();
+        if (originalFilename == null || !hasAllowedExtension(originalFilename, ALLOWED_EXTENSIONS)) {
+            throw new IllegalArgumentException("Invalid file extension. Allowed extensions are: " + ALLOWED_EXTENSIONS);
+        }
+
+        String fileName = UUID.randomUUID() + "_" + originalFilename;
 
         s3Client.putObject(
                 PutObjectRequest.builder()
                         .bucket(bucketName)
                         .key(fileName)
                         .contentType(file.getContentType())
-                        .contentDisposition("attachment; filename=\"" + file.getOriginalFilename() + "\"")
+                        .contentDisposition("attachment; filename=\"" + originalFilename + "\"")
                         .build(),
                 RequestBody.fromBytes(file.getBytes())
         );
 
         return String.format("https://%s.s3.%s.amazonaws.com/%s", bucketName, region, fileName);
+    }
+
+    private boolean hasAllowedExtension(String filename, List<String> allowedExtensions) {
+        String extension = filename.substring(filename.lastIndexOf('.') + 1).toLowerCase();
+        return allowedExtensions.contains(extension);
     }
 
     public String generatePresignedUrl(String fileName) {

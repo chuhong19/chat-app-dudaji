@@ -111,4 +111,9 @@ public class AppWideExceptionHandler {
     public ResponseEntity<?> handleTokenRefreshException(TokenRefreshException e) {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(StandardResponse.create("400", "Refresh token not found", e.getMessage()));
     }
+
+    @ExceptionHandler(IllegalArgumentException.class)
+    public ResponseEntity<?> IllegalArgumentException(IllegalArgumentException e) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(StandardResponse.create("400", "Illegal argument exception", e.getMessage()));
+    }
 }
